@@ -37,12 +37,17 @@ public abstract class Recurso  {
         this.activo = activo;
     }
 
-    public abstract void darDeBaja();
+    public void darDeBaja(){
+        this.activo =false;
+    }
 
-    public abstract boolean coincideConCriterio(String criterio);
+    public boolean coincideConCriterio(String criterio){
+        return nombre.contains(criterio);
+    }
 
-    public abstract String toString();
-    
+    public  String toString(){
+        return getClass().getSimpleName().toUpperCase() + "\nNombre" + nombre + "\nFechaIngreso" + fechaIngreso + "\nActivo" + activo;
+    }
 
 
     
