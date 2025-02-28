@@ -16,19 +16,16 @@ public class Computador extends Recurso{
         this.sistemaOperativo = sistemaOperativo;
     }
 
-    @Override
-    public void darDeBaja() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
 
     @Override
     public boolean coincideConCriterio(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.coincideConCriterio(criterio) || marca.contains(criterio) || modelo.contains(criterio) || sistemaOperativo.contains(criterio);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Computador{" + "marca=" + marca + ", modelo=" + modelo + ", sistemaOperativo=" + sistemaOperativo + '}';
     }
 
     public String getMarca() {

@@ -14,19 +14,15 @@ public class Periodico extends Recurso {
         this.fechaPublicacion = fechaPublicacion;
     }
 
-    @Override
-    public void darDeBaja() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public boolean coincideConCriterio(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.coincideConCriterio(criterio) || editorial.contains(criterio) || fechaPublicacion.toString().contains(criterio);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Periodico{" + "fechaPublicacion=" + fechaPublicacion + ", editorial=" + editorial + '}';
     }
 
     public LocalDate getFechaPublicacion() {

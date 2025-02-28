@@ -1,15 +1,15 @@
 package co.edu.etitc.sistemas.programacion;
 
 import java.time.LocalDateTime;
-import java.time.Year;
 
 public  class Libro extends Recurso {
 
     private String autor;
     private String editorial;
-    private Year anio;
+    private String anio;
+    
 
-    public Libro(Year anio, String autor, String editorial, boolean activo, LocalDateTime fechaIngreso, String nombre) {
+    public Libro(String nombre, LocalDateTime fechaIngreso, boolean activo,String autor, String editorial, String anio) {
         super(activo, fechaIngreso, nombre);
         this.anio = anio;
         this.autor = autor;
@@ -18,21 +18,16 @@ public  class Libro extends Recurso {
 
     
 
-    
 
-    @Override
-    public void darDeBaja() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public boolean coincideConCriterio(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.coincideConCriterio(criterio) || autor.contains(criterio) || editorial.contains(criterio) || anio.contains(criterio);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Libro{" + "autor=" + autor + ", editorial=" + editorial + ", anio=" + anio + '}';
     }
 
     public String getAutor() {
@@ -43,7 +38,7 @@ public  class Libro extends Recurso {
         return editorial;
     }
 
-    public Year getAnio() {
+    public String getAnio() {
         return anio;
     }
     
