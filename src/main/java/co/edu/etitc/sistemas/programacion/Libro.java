@@ -18,21 +18,16 @@ public  class Libro extends Recurso {
 
     
 
-    
 
-    @Override
-    public void darDeBaja() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public boolean coincideConCriterio(String criterio) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return super.coincideConCriterio(criterio) || autor.contains(criterio) || editorial.contains(criterio) || anio.contains(criterio);
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Libro{" + "autor=" + autor + ", editorial=" + editorial + ", anio=" + anio + '}';
     }
 
     public String getAutor() {

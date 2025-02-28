@@ -24,10 +24,7 @@ import java.util.stream.Collectors;
         return new ArrayList<>(biblioteca);
     }
 
-    Object obtenerRecursos() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+   
 
     
 

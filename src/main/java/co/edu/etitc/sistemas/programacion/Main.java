@@ -20,7 +20,7 @@ public class Main {
         biblioteca.agregarRecurso(new Computador("Lenovo", "ThinkPad X1 Carbon", "Ubuntu 22.04", false, LocalDateTime.now(), "Lenovo ThinkPad"));
 
         System.out.println("Lista de recursos en la biblioteca:");
-        biblioteca.obtenerRecursos().forEach(System.out::println);
+        biblioteca.obtenRecursos().forEach(System.out::println);
  
         String criterio = "Apple";
         System.out.println("\nRecursos que coinciden con el criterio \"" + criterio + "\":");
@@ -32,8 +32,8 @@ public class Main {
             System.out.println("\nSe eliminó el recurso: " + recursoAEliminar.getNombre());
         }
  
-        System.out.println("\nLista de recursos después de la eliminación:");
-        biblioteca.obtenerRecursos().forEach(System.out::println);
+       System.out.println("\nLista de recursos después de la eliminación:");
+       biblioteca.obtenRecursos().forEach(System.out::println);
     }
 
 
