@@ -46,7 +46,7 @@ public abstract class Recurso  {
     }
 
     public  String toString(){
-        return getClass().getSimpleName().toUpperCase() + "\nNombre" + nombre + "\nFechaIngreso" + fechaIngreso + "\nActivo" + activo;
+        return getClass().getSimpleName().toUpperCase() + "\nNombre: " + nombre + "\nFechaIngreso: " + fechaIngreso + "\nActivo: " + activo;
     }
 
 

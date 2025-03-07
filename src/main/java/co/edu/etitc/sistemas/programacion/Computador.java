@@ -25,8 +25,12 @@ public class Computador extends Recurso{
 
     @Override
     public String toString() {
-        return "Computador{" + "marca=" + marca + ", modelo=" + modelo + ", sistemaOperativo=" + sistemaOperativo + '}';
-    }
+        return  "Computador: " + this.getNombre()+"\n" +
+           "Marca: " + marca + "\n" +
+           "Modelo: " + modelo + "\n" +
+           "SistemaOperativo: " + sistemaOperativo + "\n" +
+           " ";
+}
 
     public String getMarca() {
         return marca;
