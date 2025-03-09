@@ -22,8 +22,11 @@ public class Periodico extends Recurso {
 
     @Override
     public String toString() {
-        return "Periodico{" + "fechaPublicacion=" + fechaPublicacion + ", editorial=" + editorial + '}';
-    }
+        return "Periodico: "+this.getNombre()+"\n" +
+           "FechaPublicacion: " + fechaPublicacion + "\n" +
+           "Editorial: " + editorial+ "\n" +
+           " ";
+}
 
     public LocalDate getFechaPublicacion() {
         return fechaPublicacion;

@@ -4,7 +4,7 @@ package co.edu.etitc.sistemas.programacion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
- class ServicioBiblioteca {
+public class ServicioBiblioteca {
 
     private List<Recurso> biblioteca;
     public ServicioBiblioteca(){

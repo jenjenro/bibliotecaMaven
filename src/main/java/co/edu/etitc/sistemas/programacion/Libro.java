@@ -27,8 +27,12 @@ public  class Libro extends Recurso {
 
     @Override
     public String toString() {
-        return "Libro{" + "autor=" + autor + ", editorial=" + editorial + ", anio=" + anio + '}';
-    }
+        return "Libro: " +this.getNombre()+"\n" +
+           "autor= " + autor + "\n" +
+           "editorial= " + editorial + "\n" +
+           "año= " + anio+ "\n" +
+           " ";
+}
 
     public String getAutor() {
         return autor;
