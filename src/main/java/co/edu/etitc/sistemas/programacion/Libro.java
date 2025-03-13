@@ -2,6 +2,7 @@ package co.edu.etitc.sistemas.programacion;
 
 import java.time.LocalDateTime;
 
+
 public  class Libro extends Recurso {
 
     private String autor;
@@ -15,9 +16,6 @@ public  class Libro extends Recurso {
         this.autor = autor;
         this.editorial = editorial;
     }
-
-    
-
 
 
     @Override
