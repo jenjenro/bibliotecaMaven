@@ -55,10 +55,5 @@ public class Computador extends Recurso{
     public void setSistemaOperativo(String sistemaOperativo) {
         this.sistemaOperativo = sistemaOperativo;
     }
-
-    
-    
-
-
-    
+ 
 }
