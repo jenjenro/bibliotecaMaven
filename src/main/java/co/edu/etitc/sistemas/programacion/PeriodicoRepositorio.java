@@ -24,7 +24,7 @@ public class PeriodicoRepositorio implements RecursoRepositorio<Periodico> {
     @Override
     public Collection<Periodico> buscar(String criterio) {
         return periodicos.stream()
-                .filter(periodico -> periodico.getNombre().contains(criterio) || periodico.getEditorial().contains(criterio))
+                .filter(periodico -> periodico.coincideConCriterio(criterio))
                 .collect(Collectors.toList());
     }
 

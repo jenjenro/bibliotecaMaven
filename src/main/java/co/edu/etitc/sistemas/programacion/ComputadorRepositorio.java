@@ -24,10 +24,7 @@ public class ComputadorRepositorio implements RecursoRepositorio<Computador> {
     @Override
     public Collection<Computador> buscar(String criterio) {
         return computadores.stream()
-                .filter(computador -> computador.getNombre().contains(criterio) || 
-                                     computador.getMarca().contains(criterio) || 
-                                     computador.getModelo().contains(criterio) || 
-                                     computador.getSistemaOperativo().contains(criterio))
+                .filter(computador -> computador.coincideConCriterio(criterio)) 
                 .collect(Collectors.toList());
     }
 
