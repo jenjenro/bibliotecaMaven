@@ -2,58 +2,74 @@ package co.edu.etitc.sistemas.programacion;
 
 import java.time.LocalDateTime;
 
-public class Computador extends Recurso{
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("computadores")
+public class Computador implements  Recurso{
+    @Id
+    private Integer id;
+    private String nombre;
+    private LocalDateTime fechaIngreso;
+    private boolean activo;
     private String marca;
     private String modelo;
     private String sistemaOperativo;
     private TipoComputador TipoComputador;
 
-    public Computador(String marca, String modelo, String sistemaOperativo, boolean activo, LocalDateTime fechaIngreso, String nombre) {
-        super(activo, fechaIngreso, nombre);
+    public Computador() {
+    }
+
+    public Computador(String nombre, LocalDateTime fechaIngreso, boolean activo, String marca, String modelo, String sistemaOperativo) {
+        this.nombre = nombre;
+        this.fechaIngreso = fechaIngreso;   
+        this.activo = activo;
         this.marca = marca;
         this.modelo = modelo;
         this.sistemaOperativo = sistemaOperativo;
     }
 
-    
+    public void setId(Integer id) {
+        this.id = id;
+    } 
 
-    @Override
-    public boolean coincideConCriterio(String criterio) {
-        return super.coincideConCriterio(criterio) || marca.contains(criterio) || modelo.contains(criterio) || sistemaOperativo.contains(criterio);
+    public Integer getId() {
+        return id;
     }
+    @Override       
 
+    public String getNombre() {
+        return nombre;
+    }
     @Override
-    public String toString() {
-        return  "Computador: " + this.getNombre()+"\n" +
-           "Marca: " + marca + "\n" +
-           "Modelo: " + modelo + "\n" +
-           "SistemaOperativo: " + sistemaOperativo + "\n" +
-           " ";
-}
-
+    public LocalDateTime getFechaIngreso() {
+        return fechaIngreso;
+    }
+    @Override
+    public boolean isActivo() {
+        return activo;
+    }
     public String getMarca() {
         return marca;
     }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public String getModelo() {
         return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
+    }   
     public String getSistemaOperativo() {
         return sistemaOperativo;
     }
-
-    public void setSistemaOperativo(String sistemaOperativo) {
-        this.sistemaOperativo = sistemaOperativo;
+    public TipoComputador getTipoComputador() {
+        return TipoComputador;
     }
+  
+    @Override
+    public void darDeBaja() {
+        this.activo = false;
+    }
+    @Override
+
+    public String toString() {
+        return "Computador: " + "id " + id + ", nombre " + nombre + ", fechaIngreso " + fechaIngreso + ", activo " + activo + ", marca " + marca + ", modelo " + modelo + ", sistemaOperativo " + sistemaOperativo + '.';
  
+}
 }

@@ -2,64 +2,57 @@ package co.edu.etitc.sistemas.programacion;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioBiblioteca {
-    private final RecursoRepositorio<Libro> repositorioLibros;
-    private final RecursoRepositorio<Periodico> repositorioPeriodicos;
-    private final RecursoRepositorio<Computador> repositorioComputadores;
 
-    @Autowired
-    public ServicioBiblioteca(RecursoRepositorio<Libro> repositorioLibros,
-                             RecursoRepositorio<Periodico> repositorioPeriodicos,
-                             RecursoRepositorio<Computador> repositorioComputadores) {
+    private final LibroRepositorio repositorioLibros;
+    private final PeriodicoRepositorio repositorioPeriodicos;
+    private final ComputadorRepositorio repositorioComputadores;
+
+    public ServicioBiblioteca(LibroRepositorio repositorioLibros,
+                               PeriodicoRepositorio repositorioPeriodicos,
+                               ComputadorRepositorio repositorioComputadores) {
         this.repositorioLibros = repositorioLibros;
         this.repositorioPeriodicos = repositorioPeriodicos;
         this.repositorioComputadores = repositorioComputadores;
     }
 
     public void agregar(Recurso recurso) {
-        if (recurso instanceof Libro) {
-            repositorioLibros.agregarRecurso((Libro) recurso);
-        } else if (recurso instanceof Periodico) {
-            repositorioPeriodicos.agregarRecurso((Periodico) recurso);
-        } else if (recurso instanceof Computador) {
-            repositorioComputadores.agregarRecurso((Computador) recurso);
-        } else {
-            throw new IllegalArgumentException("Tipo de recurso no soportado");
+        if (recurso instanceof Libro libro) {
+            repositorioLibros.save(libro);
+        } else if (recurso instanceof Periodico periodico) {
+            repositorioPeriodicos.save(periodico);
+        } else if (recurso instanceof Computador computador) {
+            repositorioComputadores.save(computador);
         }
     }
 
     public void quitarRecurso(Recurso recurso) {
-        if (recurso instanceof Libro) {
-            repositorioLibros.eliminarRecurso((Libro) recurso);
-        } else if (recurso instanceof Periodico) {
-            repositorioPeriodicos.eliminarRecurso((Periodico) recurso);
-        } else if (recurso instanceof Computador) {
-            repositorioComputadores.eliminarRecurso((Computador) recurso);
-        } else {
-            throw new IllegalArgumentException("Tipo de recurso no soportado");
+        if (recurso instanceof Libro libro) {
+            repositorioLibros.delete(libro);
+        } else if (recurso instanceof Periodico periodico) {
+            repositorioPeriodicos.delete(periodico);
+        } else if (recurso instanceof Computador computador) {
+            repositorioComputadores.delete(computador);
         }
     }
 
     public Collection<Recurso> buscarRecursos(String criterio) {
-        List<Recurso> resultados = new ArrayList<>();
-        resultados.addAll((Collection<? extends Recurso>) repositorioLibros.buscar(criterio));
-        resultados.addAll((Collection<? extends Recurso>) repositorioPeriodicos.buscar(criterio));
-        resultados.addAll((Collection<? extends Recurso>) repositorioComputadores.buscar(criterio));
+        Collection<Recurso> resultados = new ArrayList<>();
+        resultados.addAll(repositorioLibros.findByCriteria(criterio));
+        resultados.addAll(repositorioPeriodicos.findByCriteria(criterio));
+        resultados.addAll(repositorioComputadores.findByCriteria(criterio));
         return resultados;
     }
 
-
     public Collection<Recurso> obtenerTodos() {
-        List<Recurso> todosLosRecursos = new ArrayList<>();
-        todosLosRecursos.addAll((Collection<? extends Recurso>) repositorioLibros.obtenerTodos());
-        todosLosRecursos.addAll((Collection<? extends Recurso>) repositorioPeriodicos.obtenerTodos());
-        todosLosRecursos.addAll((Collection<? extends Recurso>) repositorioComputadores.obtenerTodos());
-        return todosLosRecursos;
+        Collection<Recurso> resultados = new ArrayList<>();
+        repositorioLibros.findAll().forEach(resultados::add);
+        repositorioPeriodicos.findAll().forEach(resultados::add);
+        repositorioComputadores.findAll().forEach(resultados::add);
+        return resultados;
     }
 }

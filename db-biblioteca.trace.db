@@ -1,0 +1,7 @@
+2025-05-02 16:44:23.522739-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "CREATE TABLE IF NOT EXISTS libros ( id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255) NOT NULL, autor VARCHAR(255), editorial VARCHAR(255), [*]year INT, fecha_ingreso TIMESTAMP, activo BOOLEAN )"; se esperaba "identifier"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS libros ( id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255) NOT NULL, autor VARCHAR(255), editorial VARCHAR(255), [*]year INT, fecha_ingreso TIMESTAMP, activo BOOLEAN )"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS libros ( id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(255) NOT NULL, autor VARCHAR(255), editorial VARCHAR(255), year INT, fecha_ingreso TIMESTAMP, activo BOOLEAN ) [42001-232]
+2025-05-02 16:51:32.710361-05:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "libros" not found (candidates are: "LIBROS"); SQL statement:
+INSERT INTO "libros" ("ACTIVO", "ANIO", "AUTOR", "EDITORIAL", "FECHA_INGRESO", "NOMBRE") VALUES (?, ?, ?, ?, ?, ?) [42103-232]

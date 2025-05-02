@@ -1,35 +1,16 @@
 package co.edu.etitc.sistemas.programacion;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
 
-@Component
-public class PeriodicoRepositorio implements RecursoRepositorio<Periodico> {
-    private final List<Periodico> periodicos = new ArrayList<>();
+public interface PeriodicoRepositorio extends CrudRepository<Periodico, Integer> {
 
-    @Override
-    public void agregarRecurso(Periodico periodico) {
-        periodicos.add(periodico);
-    }
-
-    @Override
-    public void eliminarRecurso(Periodico periodico) {
-        periodicos.remove(periodico);
-    }
-
-    @Override
-    public Collection<Periodico> buscar(String criterio) {
-        return periodicos.stream()
-                .filter(periodico -> periodico.coincideConCriterio(criterio))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Collection<Periodico> obtenerTodos() {
-        return periodicos;
-    }
+    @Query("""
+        SELECT * FROM periodico 
+        WHERE nombre LIKE '%' || :criterio || '%' 
+           OR editorial LIKE '%' || :criterio || '%' 
+           OR fecha_publicacion::TEXT LIKE '%' || :criterio || '%'
+    """)
+    Collection<Periodico> findByCriteria(String criterio);
 }

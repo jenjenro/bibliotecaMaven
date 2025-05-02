@@ -1,35 +1,21 @@
 package co.edu.etitc.sistemas.programacion;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@Component 
-public class LibroRepositorio implements RecursoRepositorio<Libro> {
-    private List<Libro> libros = new ArrayList<>();
-    
-    @Override
-    public void agregarRecurso(Libro recurso) {
-        libros.add(recurso);
-    }
-    
-    @Override
-    public void eliminarRecurso(Libro recurso) {
-        libros.remove(recurso);
-    }
-    
-    @Override
-    public Collection<Libro> buscar(String criterio) {
-        return libros.stream()
-                .filter(libro -> libro.coincideConCriterio(criterio))
-                .collect(Collectors.toList());
-    }
-    
-    @Override
-    public Collection<Libro> obtenerTodos() {
-        return libros;
-    }
+@Repository
+public interface LibroRepositorio extends CrudRepository<Libro, Integer> {
+
+    @Query("""
+        SELECT * FROM libro 
+        WHERE nombre LIKE '%' || :criterio || '%' 
+           OR autor LIKE '%' || :criterio || '%' 
+           OR editorial LIKE '%' || :criterio || '%' 
+           OR anio LIKE '%' || :criterio || '%'
+    """)
+    Collection<Libro> findByCriteria(String criterio);
+
 }

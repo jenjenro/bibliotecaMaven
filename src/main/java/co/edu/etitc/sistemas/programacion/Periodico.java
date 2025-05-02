@@ -3,46 +3,69 @@ package co.edu.etitc.sistemas.programacion;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Periodico extends Recurso {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("periodicos")
+public class Periodico implements  Recurso {
+    @Id
+    private Integer id;
+    private String nombre;
+    private LocalDateTime fechaIngreso;
+    private boolean activo;
     private LocalDate fechaPublicacion;
     private String editorial;
 
-    public Periodico(String editorial, LocalDate fechaPublicacion, boolean activo, LocalDateTime fechaIngreso, String nombre) {
-        super(activo, fechaIngreso, nombre);
+   
+
+    public Periodico(String nombre, LocalDateTime fechaIngreso, boolean activo, LocalDate fechaPublicacion, String editorial) {
+        
+        this.nombre = nombre;
+        this.fechaIngreso = fechaIngreso;
+        this.activo = activo;
         this.editorial = editorial;
         this.fechaPublicacion = fechaPublicacion;
     }
 
-
-    @Override
-    public boolean coincideConCriterio(String criterio) {
-        return super.coincideConCriterio(criterio) || editorial.contains(criterio) || fechaPublicacion.toString().contains(criterio);
+    public Periodico() {
     }
+    public void setId(Integer id) {
+        this.id = id;
+    } 
 
+    public Integer getId() {
+        return id;
+    }
+    
     @Override
-    public String toString() {
-        return "Periodico: "+this.getNombre()+"\n" +
-           "FechaPublicacion: " + fechaPublicacion + "\n" +
-           "Editorial: " + editorial+ "\n" +
-           " ";
-}
-
+    public String getNombre() {
+        return nombre;
+    }
+    
+    @Override
+    public LocalDateTime getFechaIngreso() {
+        return fechaIngreso;
+    }
+    @Override
+    public boolean isActivo() {
+        return activo;
+    }
     public LocalDate getFechaPublicacion() {
         return fechaPublicacion;
     }
-
-    public void setFechaPublicacion(LocalDate fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
-    }
-
     public String getEditorial() {
         return editorial;
     }
-
-    public void setEditorial(String editorial) {
-        this.editorial = editorial;
+    @Override
+    public void darDeBaja() {
+        this.activo = false;
     }
+    @Override
+    public String toString() {
+        return "Periodico: " + "id " + id + ", nombre " + nombre + ", fechaIngreso " + fechaIngreso + ", activo " + activo + ", fechaPublicacion " + fechaPublicacion + ", editorial " + editorial + '.';
+    }
+
     
-    
+
 }
+

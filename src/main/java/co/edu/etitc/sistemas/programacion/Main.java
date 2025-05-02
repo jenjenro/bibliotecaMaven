@@ -2,40 +2,62 @@ package co.edu.etitc.sistemas.programacion;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
+@SpringBootApplication(scanBasePackages = "co.edu.etitc.sistemas")
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
         ServicioBiblioteca servicio = context.getBean(ServicioBiblioteca.class);
 
-        servicio.agregar(new Libro("1984", LocalDateTime.now(), true, "George Orwell", "Blanco y negro SAS", "1949"));
-        servicio.agregar(new Periodico("El Tiempo", LocalDate.now(), true, LocalDateTime.now(), "El Tiempo"));
-        servicio.agregar(new Computador("Apple", "MacBook Pro", "macOS", true, LocalDateTime.now(), "MacBook Pro 2023"));
 
-        AppName appName = context.getBean(AppName.class);
-
-        appName.imprimirNombre();
+        Libro libro1 = new Libro("El Quijote", LocalDateTime.now(), true, 
+                               "Miguel de Cervantes", "Planeta", "1605");
+        Libro libro2 = new Libro("Cien Años de Soledad", LocalDateTime.now(), true,
+                               "Gabriel García Márquez", "Sudamericana", "1967");
         
-        System.out.println("Recursos en la biblioteca:");
+        Periodico periodico1 = new Periodico("El Tiempo", LocalDateTime.now(), true,
+                               LocalDate.of(2024, 5, 1), "Casa Editorial El Tiempo");
+        Periodico periodico2 = new Periodico("El Espectador", LocalDateTime.now(), true,
+                               LocalDate.of(2024, 4, 15), "CEDE");
+
+        Computador computador1 = new Computador("Compu1", LocalDateTime.now(), true, 
+                               "HP", "Pavilion", "Windows 11");
+        Computador computador2 = new Computador("Compu2", LocalDateTime.now(), true, 
+                               "Lenovo", "ThinkPad", "Ubuntu");
+
+        // Agrega los recursos al servicio
+        servicio.agregar(libro1);
+        servicio.agregar(libro2);
+        servicio.agregar(periodico1);
+        servicio.agregar(periodico2);
+        servicio.agregar(computador1);
+        servicio.agregar(computador2);
+
+        // Muestra todos los recursos
+        System.out.println("\n=== Todos los recursos ===");
         servicio.obtenerTodos().forEach(System.out::println);
 
-        String criterio = "1984";
-        System.out.println("\nBuscando recursos que coincidan con: " + criterio);
-        Collection<Recurso> recursosEncontrados = servicio.buscarRecursos(criterio);
+        // Ejemplo de búsqueda
+        String criterioBusqueda = "El";
+        System.out.println("\n=== Buscando recursos con: '" + criterioBusqueda + "' ===");
+        servicio.buscarRecursos(criterioBusqueda).forEach(System.out::println);
 
-        if (!recursosEncontrados.isEmpty()) {
-            Recurso recursoAEliminar = recursosEncontrados.iterator().next();
-            System.out.println("\nRecurso encontrado y eliminado: " + recursoAEliminar.getNombre());
-            servicio.quitarRecurso(recursoAEliminar);
-        } else {
-            System.out.println("\nNo se encontraron recursos que coincidan con el criterio.");
-        }
+        // Ejemplo de dar de baja un recurso
+        System.out.println("\n=== Dando de baja un recurso ===");
+        servicio.obtenerTodos().stream().findFirst().ifPresent(recurso -> {
+            recurso.darDeBaja();
+            servicio.agregar(recurso); // Actualiza en la base de datos
+            System.out.println("Recurso dado de baja: " + recurso);
+        });
 
-        System.out.println("\nRecursos en la biblioteca después de la eliminación:");
+        // Muestra el estado final
+        System.out.println("\n=== Estado final ===");
         servicio.obtenerTodos().forEach(System.out::println);
+
+       
     }
 }
