@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS libros (
+CREATE TABLE IF NOT EXISTS libro (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     autor VARCHAR(255),
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS libros (
     activo BOOLEAN
 );
 
-CREATE TABLE IF NOT EXISTS periodicos (
+CREATE TABLE IF NOT EXISTS periodico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     fecha_publicacion DATE,
@@ -17,12 +17,13 @@ CREATE TABLE IF NOT EXISTS periodicos (
     activo BOOLEAN
 );
 
-CREATE TABLE IF NOT EXISTS computadores (
+CREATE TABLE IF NOT EXISTS computador (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     marca VARCHAR(255),
     modelo VARCHAR(255),
     sistema_operativo VARCHAR(255),
     fecha_ingreso TIMESTAMP,
-    activo BOOLEAN
+    activo BOOLEAN,
+    TIPO_COMPUTADOR VARCHAR(255) 
 );

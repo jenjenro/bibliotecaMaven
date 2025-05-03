@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("computadores")
+@Table("COMPUTADORES")
 public class Computador implements  Recurso{
     @Id
     private Integer id;

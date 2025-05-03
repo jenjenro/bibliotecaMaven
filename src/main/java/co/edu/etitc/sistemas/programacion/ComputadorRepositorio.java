@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ComputadorRepositorio extends CrudRepository<Computador, Integer> {
 
     @Query("""
@@ -15,4 +17,17 @@ public interface ComputadorRepositorio extends CrudRepository<Computador, Intege
            OR sistema_operativo LIKE '%' || :criterio || '%'
     """)
     Collection<Computador> findByCriteria(String criterio);
+
+    @Override
+    <S extends Computador> S save(S entity);
+
+
+    @Override
+    void delete(Computador entity);
+
+    @Override
+    Iterable<Computador> findAll();    
+
+
+
 }

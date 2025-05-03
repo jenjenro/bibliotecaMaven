@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("periodicos")
+@Table("PERIODICOS")
 public class Periodico implements  Recurso {
     @Id
     private Integer id;

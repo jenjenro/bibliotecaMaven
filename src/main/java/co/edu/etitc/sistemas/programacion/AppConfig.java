@@ -4,15 +4,21 @@ import javax.sql.DataSource;
 
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;;;
 
 @Configuration
-@EnableJdbcRepositories // Asegura que Spring Data JDBC se active
+@EnableJdbcRepositories 
+@ComponentScan("co.edu.etitc.sistemas.programacion")
+@EnableAspectJAutoProxy
+
+
 public class AppConfig {
 
     @Bean

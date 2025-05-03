@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface LibroRepositorio extends CrudRepository<Libro, Integer> {
 
     @Query("""
-        SELECT * FROM libro 
+        SELECT * FROM libros
         WHERE nombre LIKE '%' || :criterio || '%' 
            OR autor LIKE '%' || :criterio || '%' 
            OR editorial LIKE '%' || :criterio || '%' 
