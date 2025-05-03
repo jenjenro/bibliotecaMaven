@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS libros ( id INT AUTO_INCREMENT PRIMARY KEY, nombre VA
 2025-05-02 16:51:32.710361-05:00 jdbc[6]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "libros" not found (candidates are: "LIBROS"); SQL statement:
 INSERT INTO "libros" ("ACTIVO", "ANIO", "AUTOR", "EDITORIAL", "FECHA_INGRESO", "NOMBRE") VALUES (?, ?, ?, ?, ?, ?) [42103-232]
+2025-05-02 19:04:14.004318-05:00 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "periodicos" not found (candidates are: "PERIODICOS"); SQL statement:
+INSERT INTO "periodicos" ("ACTIVO", "EDITORIAL", "FECHA_INGRESO", "FECHA_PUBLICACION", "NOMBRE") VALUES (?, ?, ?, ?, ?) [42103-232]
