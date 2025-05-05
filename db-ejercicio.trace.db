@@ -1,0 +1,6 @@
+2025-05-02 16:39:47.107395-05:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "libros" not found (this database is empty); SQL statement:
+INSERT INTO "libros" ("ACTIVO", "AUTOR", "EDITORIAL", "FECHA_INGRESO", "NOMBRE", "YEAR") VALUES (?, ?, ?, ?, ?, ?) [42104-232]
+2025-05-02 16:41:01.942385-05:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "libros" not found (this database is empty); SQL statement:
+INSERT INTO "libros" ("ACTIVO", "AUTOR", "EDITORIAL", "FECHA_INGRESO", "NOMBRE", "YEAR") VALUES (?, ?, ?, ?, ?, ?) [42104-232]

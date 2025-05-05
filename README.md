@@ -32,3 +32,4 @@ Para ejecutar el proyecto, use alguno de los siguientes comandos de Maven:
 
 
 >c: && cd c:\Users\rojas\OneDrive\Documentos\Universidad\ProgramacionIV\ejercicio-maven && cmd /C "C:\WorkSpace\jdk-21_windows-x64_bin\jdk-21.0.6\bin\java.exe -XX:+ShowCodeDetailsInExceptionMessages -cp C:\Users\rojas\OneDrive\Documentos\Universidad\ProgramacionIV\ejercicio-maven\target\classes co.edu.etitc.sistemas.programacion.Main "
+
