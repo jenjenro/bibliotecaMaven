@@ -1,56 +1,71 @@
 package co.edu.etitc.sistemas.programacion;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+    import java.io.BufferedReader;
+    import java.io.IOException;
+    import java.io.InputStreamReader;
+    import java.sql.Connection;
+    import java.sql.SQLException;
+    import java.time.LocalDate;
+    import java.time.LocalDateTime;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+    import javax.sql.DataSource;
 
-@SpringBootApplication(scanBasePackages = "co.edu.etitc.sistemas")
-public class Main {
-    public static void main(String[] args) {
-        try (ConfigurableApplicationContext context = SpringApplication.run(Main.class, args)) {
-            ServicioBiblioteca servicio = context.getBean(ServicioBiblioteca.class);
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
+    import org.springframework.context.ConfigurableApplicationContext;
 
-            Libro libro1 = new Libro("El Quijote", LocalDateTime.now(), true, 
-                                   "Miguel de Cervantes", "Planeta", "1605");
-            Libro libro2 = new Libro("Cien Años de Soledad", LocalDateTime.now(), true,
-                                   "Gabriel García Márquez", "Sudamericana", "1967");
+    @SpringBootApplication
+    public class Main {
+        public static void main(String[] args) throws SQLException {
+            try (ConfigurableApplicationContext context = SpringApplication.run(Main.class, args)) {
+                String sql = "";
+                try (var recurso = Main.class.getResourceAsStream("/schema.sql")) {
+                    var reader = new BufferedReader(new InputStreamReader(recurso));
+                    String linea;
+                    while ((linea = reader.readLine()) != null) {
+                        sql = sql + linea;
+                    }
+                    System.out.println(sql);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                DataSource dataSource = context.getBean(DataSource.class);
 
-            Periodico periodico1 = new Periodico("El Tiempo", LocalDateTime.now(), true,
-                                   LocalDate.of(2024, 5, 1), "Casa Editorial El Tiempo");
-            Periodico periodico2 = new Periodico("El Espectador", LocalDateTime.now(), true,
-                                   LocalDate.of(2024, 4, 15), "CEDE");
+                try (Connection connection = dataSource.getConnection()) {
+                    connection.createStatement().execute(sql);
+                }
 
-            Computador computador1 = new Computador("Compu1", LocalDateTime.now(), true, 
-                                   "HP", "Pavilion", "Windows 11");
-            Computador computador2 = new Computador("Compu2", LocalDateTime.now(), true, 
-                                   "Lenovo", "ThinkPad", "Ubuntu");
+                ServicioBiblioteca biblioteca = context.getBean(ServicioBiblioteca.class);
 
-            servicio.agregar(libro1);
-            servicio.agregar(libro2);
-            servicio.agregar(periodico1);
-            servicio.agregar(periodico2);
-            servicio.agregar(computador1);
-            servicio.agregar(computador2);
+                // Crear recursos de prueba
+                Libro libro1 = new Libro( null, "Gabriel García Márquez", "Sudamericana", "1967", "Cien años de soledad", LocalDateTime.now(), true);
 
-            System.out.println("\n=== Todos los recursos ===");
-            servicio.obtenerTodos().forEach(System.out::println);
+                Computador computador1 = new Computador(null, "Dell", "Workstation Dell", "Windows 11 Pro", "Dell", LocalDateTime.now(), true, TipoComputador.ESCRITORIO);
 
-            String criterioBusqueda = "El";
-            System.out.println("\n=== Buscando recursos con: '" + criterioBusqueda + "' ===");
-            servicio.buscarRecursos(criterioBusqueda).forEach(System.out::println);
+                Periodico periodico1 = new Periodico(null, LocalDate.of(2023, 10, 20), "El espectador", "Casa Editorial El Espectador", LocalDateTime.now(), true);
 
-            System.out.println("\n=== Dando de baja un recurso ===");
-            servicio.obtenerTodos().stream().findFirst().ifPresent(recurso -> {
-                recurso.darDeBaja();
-                servicio.agregar(recurso);
-                System.out.println("Recurso dado de baja: " + recurso);
-            });
+                // Persistir recursos
+                biblioteca.agregarRecurso(libro1);
+                biblioteca.agregarRecurso(computador1);
+                biblioteca.agregarRecurso(periodico1);
 
-            System.out.println("\n=== Estado final ===");
-            servicio.obtenerTodos().forEach(System.out::println);
+                // Buscar todos los recursos
+                System.out.println("\n=== Recursos iniciales ===");
+                biblioteca.obtenerTodos().forEach(System.out::println);
+
+                // Búsqueda por criterio
+                String criterio = "El espectador";
+                System.out.println("\nBuscando: " + criterio);
+                biblioteca.buscaRecursos(criterio).forEach(recurso -> {
+                    System.out.println("Encontrado: " + recurso);
+                    System.out.println("Eliminando...");
+                    biblioteca.eliminarRecurso(recurso);
+                });
+
+                // Resultado final
+                System.out.println("\n=== Recursos restantes ===");
+                biblioteca.obtenerTodos().forEach(System.out::println);
+            }
         }
+
     }
-}

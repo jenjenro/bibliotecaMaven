@@ -3,75 +3,109 @@ package co.edu.etitc.sistemas.programacion;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("LIBROS")
+@Table(name = "LIBRO")
 public class Libro implements Recurso {
+
     @Id
     private Integer id;
-    private String nombre;
-    private LocalDateTime fechaIngreso;
-    private boolean activo;
     private String autor;
     private String editorial;
     private String anio;
-    
+    private String nombre;
+    @Column("FECHA_INGRESO")
+    private LocalDateTime fechaIngreso;
+    private boolean activo;
 
-
-
-    public Libro(String nombre, LocalDateTime fechaIngreso, boolean activo,String autor, String editorial, String anio) {
-        this.nombre = nombre;
-        this.fechaIngreso = fechaIngreso;   
-        this.activo = activo;
-        this.anio = anio;
+    public Libro(Integer id, String autor, String editorial, String anio, String nombre, LocalDateTime fechaIngreso, boolean activo) {
+        this.id = id;
         this.autor = autor;
         this.editorial = editorial;
+        this.anio = anio;
+        this.nombre = nombre;
+        this.fechaIngreso = fechaIngreso;
+        this.activo = activo;
     }
 
-    public Libro(){} 
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Libro() {
     }
 
     public Integer getId() {
         return id;
     }
 
-    @Override
-    public String getNombre() {
-    return nombre;
-}
-  
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getAutor() {
         return autor;
-    }   
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 
     public String getEditorial() {
         return editorial;
     }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
     public String getAnio() {
         return anio;
     }
-   //indico copilot que debian implementarse pero no aparecen en el diagrama de flujo
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public void setFechaIngreso(LocalDateTime fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    @Override
+    public String getNombre() {
+        return this.nombre;
+    }
+
     @Override
     public LocalDateTime getFechaIngreso() {
-        return fechaIngreso;
+        return this.fechaIngreso;
     }
 
     @Override
     public boolean isActivo() {
-        return activo;
+        return this.activo;
     }
 
     @Override
     public void darDeBaja() {
         this.activo = false;
     }
-//este si
+
     @Override
     public String toString() {
-        return "Libro{" + "id " + id + ", nombre " + nombre + ", fechaIngreso " + fechaIngreso + ", activo " + activo + ", autor " + autor + ", editorial " + editorial + ", year " + anio + '}';
+        return "Libro{" +
+                "id=" + id +
+                ", autor='" + autor + '\'' +
+                ", editorial='" + editorial + '\'' +
+                ", anio='" + anio + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", fechaIngreso=" + fechaIngreso +
+                ", activo=" + activo +
+                '}';
     }
- 
 }
